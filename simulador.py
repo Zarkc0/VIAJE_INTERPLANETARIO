@@ -1,24 +1,24 @@
 class Planeta:
-    # Atributos de clase para conteo y almacenamiento global
+
     total_planetas = 0
     lista_planetas = []
 
     def __init__(self, nombre, distancia_sol_km):
-        # Constructor
+        
         self.nombre = nombre
         self.distancia_sol_km = distancia_sol_km
         Planeta.total_planetas += 1
         Planeta.lista_planetas.append(self)
 
     def __del__(self):
-        # Destructor
+        
         Planeta.total_planetas -= 1
         if self in Planeta.lista_planetas:
             Planeta.lista_planetas.remove(self)
 
     @classmethod
     def obtener_total_planetas(cls):
-        # Método de clase
+        
         return cls.total_planetas
 
     def __str__(self):
@@ -26,45 +26,44 @@ class Planeta:
 
 
 class NaveEspacial:
-    # Atributos de clase para conteo y almacenamiento global
+    
     total_naves = 0
     lista_naves = []
 
     def __init__(self, nombre, velocidad_km_s, *misiones, **recursos):
-        # Constructor con *args y **kwargs
+        
         self.nombre = nombre
         self.velocidad_km_s = velocidad_km_s
-        self.misiones = misiones          # Tupla de misiones (*args)
-        self.recursos = recursos          # Diccionario de recursos (**kwargs)
-        self.destino = None               # Instancia de Planeta asignada
+        self.misiones = misiones          
+        self.recursos = recursos          
+        self.destino = None               
         
         NaveEspacial.total_naves += 1
         NaveEspacial.lista_naves.append(self)
 
     def __del__(self):
-        # Destructor
+    
         NaveEspacial.total_naves -= 1
         if self in NaveEspacial.lista_naves:
             NaveEspacial.lista_naves.remove(self)
 
     @classmethod
     def obtener_total_naves(cls):
-        # Método de clase
+        
         return cls.total_naves
 
     def asignar_destino(self, planeta):
-        # Método de instancia
+        
         self.destino = planeta
         print(f"¡Destino '{planeta.nombre}' asignado con éxito a la nave {self.nombre}!")
 
     def calcular_tiempo_viaje(self):
-        # Método de instancia para cálculo de tiempo
+        
         if not self.destino:
             return "La nave no tiene un destino asignado."
         if self.velocidad_km_s <= 0:
             return "La velocidad de la nave debe ser mayor a 0."
         
-        # Cálculo básico basado en distancia lineal y velocidad constante
         distancia = self.destino.distancia_sol_km
         tiempo_segundos = distancia / self.velocidad_km_s
         tiempo_horas = tiempo_segundos / 3600
@@ -72,7 +71,7 @@ class NaveEspacial:
         return tiempo_dias
 
     def mostrar_informacion(self):
-        # Método de instancia
+        
         info = f"\n--- Nave: {self.nombre} ---\n"
         info += f"Velocidad: {self.velocidad_km_s:,.2f} km/s\n"
         info += f"Destino actual: {self.destino.nombre if self.destino else 'Ninguno'}\n"
@@ -193,4 +192,3 @@ def menu_interactivo():
 
 if __name__ == "__main__":
     menu_interactivo()
-    
